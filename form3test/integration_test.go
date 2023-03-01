@@ -30,7 +30,7 @@ func TestCreateAccount(t *testing.T) {
 		t.Fatalf("createAccount returned error: %v", err)
 	}
 
-	t.Logf("Created account with ID: %v, successfully", account.ID)
+	t.Logf("Created account with ID: %v", account.ID)
 }
 
 func TestCreateAccountNilData(t *testing.T) {
@@ -42,7 +42,7 @@ func TestCreateAccountNilData(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf("Error: %v", err)
+	t.Logf(err)
 }
 
 func TestCreateAccountMissingData(t *testing.T) {
@@ -58,7 +58,7 @@ func TestCreateAccountMissingData(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf("Error: %v", err)
+	t.Logf(err)
 }
 
 func TestCreateAccountDuplicateData(t *testing.T) {
@@ -77,7 +77,7 @@ func TestCreateAccountDuplicateData(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf("Error: %v", err)
+	t.Logf(err)
 }
 
 func TestFetchAccount(t *testing.T) {
@@ -90,7 +90,7 @@ func TestFetchAccount(t *testing.T) {
 		t.Fatalf("createAccount returned error: %v", err)
 	}
 
-	t.Logf("Created account with ID: %v, successfully", account.ID)
+	t.Logf("Created account with ID: %v", account.ID)
 
 	// fetch/read the account
 	fetchedAccount, err := client.Accounts.Fetch(account.ID)
@@ -102,7 +102,7 @@ func TestFetchAccount(t *testing.T) {
 		t.Fatalf("Account ID should be %v, got %v", account.ID, fetchedAccount.ID)
 	}
 
-	t.Logf("Fetched account with ID: %v, successfully", fetchedAccount.ID)
+	t.Logf("Fetched account with ID: %v", fetchedAccount.ID)
 
 }
 
@@ -116,7 +116,7 @@ func TestFetchAccountEmptyID(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf("Error: %v", err)
+	t.Logf(err)
 
 }
 
@@ -130,7 +130,7 @@ func TestFetchAccountUnknownID(t *testing.T) {
 		t.Fatalf("createAccount returned error: %v", err)
 	}
 
-	t.Logf("Created account with ID: %v, successfully", account.ID)
+	t.Logf("Created account with ID: %v", account.ID)
 
 	// fetch/read the account
 	_, err = client.Accounts.Fetch((uuid.New()).String())
@@ -138,7 +138,7 @@ func TestFetchAccountUnknownID(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf("Error: %v", err)
+	t.Logf(err)
 
 }
 
@@ -152,7 +152,7 @@ func TestDeleteAccount(t *testing.T) {
 		t.Fatalf("createAccount returned error: %v", err)
 	}
 
-	t.Logf("Created account with ID: %v, successfully", account.ID)
+	t.Logf("Created account with ID: %v", account.ID)
 
 	// delete the account
 	err = client.Accounts.Delete(account.ID, account.Version)
@@ -167,7 +167,7 @@ func TestDeleteAccount(t *testing.T) {
 
 	}
 
-	t.Logf("Deleted account with ID: %v, successfully", account.ID)
+	t.Logf("Deleted account with ID: %v", account.ID)
 
 }
 
@@ -183,7 +183,7 @@ func TestDeleteAccountEmptyId(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf("Error: %v", err)
+	t.Logf(err)
 
 }
 
@@ -199,7 +199,7 @@ func TestDeleteAccountUnknownID(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf("Error: %v", err)
+	t.Logf(err)
 
 }
 
@@ -213,7 +213,7 @@ func TestDeleteAccountUnknownVersion(t *testing.T) {
 		t.Fatalf("createAccount returned error: %v", err)
 	}
 
-	t.Logf("Created account with ID: %v, successfully", account.ID)
+	t.Logf("Created account with ID: %v", account.ID)
 
 	version := int64(1)
 
@@ -223,7 +223,7 @@ func TestDeleteAccountUnknownVersion(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf("Error: %v", err)
+	t.Logf(err)
 
 }
 
