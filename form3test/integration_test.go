@@ -6,6 +6,12 @@ import (
 	"testing"
 )
 
+var (
+	gb     = "GB"
+	name   = []string{"Hassan", "Qazi"}
+	org_id = "eb0bd6f5-c3f5-44b2-b677-acd23cdde73c"
+)
+
 var client *form3.Client
 
 func setup() {
@@ -43,20 +49,11 @@ func TestCreateAccountMissingData(t *testing.T) {
 
 	setup()
 
-	gb := "GB"
-	name := []string{"Hassan", "Qazi"}
+	accountData := createAccountData()
 
-	accountData := form3.AccountData{
-		//ID:             (uuid.New()).String(),
-		OrganisationID: "eb0bd6f5-c3f5-44b2-b677-acd23cdde73c",
-		Type:           "accounts",
-		Attributes: &form3.AccountAttributes{
-			Country: &gb,
-			Name:    name,
-		},
-	}
+	accountData.ID = ""
 
-	_, err := client.Accounts.Create(&accountData)
+	_, err := client.Accounts.Create(accountData)
 	if err == nil {
 		t.Fatalf("Expecting err but got nil")
 	}
@@ -68,25 +65,14 @@ func TestCreateAccountDuplicateData(t *testing.T) {
 
 	setup()
 
-	gb := "GB"
-	name := []string{"Hassan", "Qazi"}
+	accountData := createAccountData()
 
-	accountData := form3.AccountData{
-		ID:             (uuid.New()).String(),
-		OrganisationID: "eb0bd6f5-c3f5-44b2-b677-acd23cdde73c",
-		Type:           "accounts",
-		Attributes: &form3.AccountAttributes{
-			Country: &gb,
-			Name:    name,
-		},
-	}
-
-	_, err := client.Accounts.Create(&accountData)
+	_, err := client.Accounts.Create(accountData)
 	if err != nil {
 		t.Fatalf("Create returned error: %v", err)
 	}
 
-	_, err = client.Accounts.Create(&accountData)
+	_, err = client.Accounts.Create(accountData)
 	if err == nil {
 		t.Fatalf("Expecting err but got nil")
 	}
@@ -243,12 +229,19 @@ func TestDeleteAccountUnknownVersion(t *testing.T) {
 
 func createAccount() (*form3.AccountData, error) {
 
-	gb := "GB"
-	name := []string{"Hassan", "Qazi"}
+	accountData := createAccountData()
+
+	account, err := client.Accounts.Create(accountData)
+
+	return account, err
+
+}
+
+func createAccountData() *form3.AccountData {
 
 	accountData := form3.AccountData{
 		ID:             (uuid.New()).String(),
-		OrganisationID: "eb0bd6f5-c3f5-44b2-b677-acd23cdde73c",
+		OrganisationID: org_id,
 		Type:           "accounts",
 		Attributes: &form3.AccountAttributes{
 			Country: &gb,
@@ -256,8 +249,5 @@ func createAccount() (*form3.AccountData, error) {
 		},
 	}
 
-	account, err := client.Accounts.Create(&accountData)
-
-	return account, err
-
+	return &accountData
 }
