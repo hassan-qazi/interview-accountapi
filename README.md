@@ -16,7 +16,7 @@ Please ensure container name is correct or use container id
 
 ## Notes
 
-Used the <a href="https://github.com/google/go-github" target="_blank">Github Client Library</a> common service approach. Also using the same approach to build the request buffer for POST
+Used the <a href="https://github.com/google/go-github" target="_blank">Github Client Library</a> common service approach. Also using their approach to build the request buffer for POST
 <br/>
 <br/>
 form3 is a standalone module with basic unit tests
