@@ -1,6 +1,17 @@
-// Account represents an account in the form3 org section.
-// See https://api-docs.form3.tech/api.html#organisation-accounts for
-// more information about fields.
+package form3
+
+import (
+	"fmt"
+)
+
+type DataWrapper struct {
+	Data *AccountData `json:"data,omitempty"`
+}
+
+type AccountListDataWrapper struct {
+	Data *[]AccountData `json:"data,omitempty"`
+}
+
 type AccountData struct {
 	Attributes     *AccountAttributes `json:"attributes,omitempty"`
 	ID             string             `json:"id,omitempty"`
@@ -25,4 +36,18 @@ type AccountAttributes struct {
 	SecondaryIdentification string   `json:"secondary_identification,omitempty"`
 	Status                  *string  `json:"status,omitempty"`
 	Switched                *bool    `json:"switched,omitempty"`
+}
+
+func (a AccountData) String() string {
+	return fmt.Sprintf("Id: %v", a.ID)
+}
+
+type ApiError struct {
+	ErrorMessage string `json:"error_message,omitempty"`
+	StatusCode   int
+}
+
+func (e *ApiError) Error() string {
+	return fmt.Sprintf("Response StatusCode: %v, ErrorMessage: %s",
+		e.StatusCode, e.ErrorMessage)
 }
