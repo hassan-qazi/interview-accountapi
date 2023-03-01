@@ -3,14 +3,10 @@ package form3
 import (
 	"bytes"
 	"encoding/json"
-	//"errors"
-	//"fmt"
 	"io"
-	//"math/rand"
 	"net/http"
 	"net/url"
-	//"strings"
-	//"time"
+	"os"
 )
 
 const (
@@ -36,7 +32,13 @@ func NewClient(httpClient *http.Client) *Client {
 		httpClient = &http.Client{}
 	}
 
-	baseURL, _ := url.Parse(defaultBaseURL)
+	apiBaseUrl := os.Getenv("API_BASE_URL")
+
+	if apiBaseUrl == "" {
+		apiBaseUrl = defaultBaseURL
+	}
+
+	baseURL, _ := url.Parse(apiBaseUrl)
 
 	c := &Client{HttpClient: httpClient, BaseURL: baseURL, UserAgent: defaultUserAgent}
 

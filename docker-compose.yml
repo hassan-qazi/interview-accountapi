@@ -42,3 +42,17 @@ services:
     environment:
       - SKIP_SETCAP=1
       - VAULT_DEV_ROOT_TOKEN_ID=8fb95528-57c6-422e-9722-d2147bcba8ed
+  
+  form3test:
+    image: form3test:v1
+    build:
+      context: .
+      dockerfile: ./form3test/Dockerfile
+    restart: on-failure
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    links: 
+        - postgresql
+    environment:
+      - API_BASE_URL=http://accountapi:8080/

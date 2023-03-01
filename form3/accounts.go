@@ -2,8 +2,10 @@ package form3
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 )
 
 type AccountsService service
@@ -126,6 +128,10 @@ func (s *AccountsService) Create(accountData *AccountData) (*AccountData, error)
 
 func (s *AccountsService) Fetch(id string) (*AccountData, error) {
 
+	if id == "" {
+		return nil, errors.New("id is empty")
+	}
+
 	url := fmt.Sprintf("v1/organisation/accounts/%v", id)
 
 	resp, err := s.Client.Do("GET", url, nil)
@@ -156,9 +162,13 @@ func (s *AccountsService) Fetch(id string) (*AccountData, error) {
 	return respBody.Data, nil
 }
 
-func (s *AccountsService) Delete(id string, version string) error {
+func (s *AccountsService) Delete(id string, version *int64) error {
 
-	url := fmt.Sprintf("v1/organisation/accounts/%v?version=%v", id, version)
+	if id == "" {
+		return errors.New("id is empty")
+	}
+
+	url := fmt.Sprintf("v1/organisation/accounts/%v?version=%v", id, *version)
 
 	resp, err := s.Client.Do("DELETE", url, nil)
 	if err != nil {
@@ -188,6 +198,7 @@ func CheckAndBuildError(statusCode int, respBytes *[]byte) error {
 		apiError := &ApiError{}
 
 		apiError.StatusCode = statusCode
+		apiError.ErrorMessage = http.StatusText(statusCode)
 
 		if len(*respBytes) != 0 {
 
