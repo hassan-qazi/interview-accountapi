@@ -13,4 +13,4 @@ COPY ./form3test/integration_test.go ./
 
 RUN go test -c -o form3.test
 
-CMD [ "./form3.test -test.v" ]
+CMD ./form3.test -test.v
