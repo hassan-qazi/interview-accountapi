@@ -44,7 +44,7 @@ func NewClient(httpClient *http.Client) *Client {
 
 	c.Common.Client = c
 
-	c.Accounts = (*AccountsService)(&c.Common)
+	c.Accounts = (*AccountsService)(&c.Common) // From github client library
 
 	return c
 }
@@ -56,7 +56,7 @@ func (c *Client) Do(method, urlStr string, body interface{}) (*http.Response, er
 		return nil, err
 	}
 
-	var buf io.ReadWriter
+	var buf io.ReadWriter // Code block is from github client library
 	if body != nil {
 		buf = &bytes.Buffer{}
 		enc := json.NewEncoder(buf)
