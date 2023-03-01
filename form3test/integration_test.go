@@ -42,7 +42,7 @@ func TestCreateAccountNilData(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf(err)
+	t.Logf("%v", err)
 }
 
 func TestCreateAccountMissingData(t *testing.T) {
@@ -58,7 +58,7 @@ func TestCreateAccountMissingData(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf(err)
+	t.Logf("%v", err)
 }
 
 func TestCreateAccountDuplicateData(t *testing.T) {
@@ -77,7 +77,7 @@ func TestCreateAccountDuplicateData(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf(err)
+	t.Logf("%v", err)
 }
 
 func TestFetchAccount(t *testing.T) {
@@ -116,7 +116,7 @@ func TestFetchAccountEmptyID(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf(err)
+	t.Logf("%v", err)
 
 }
 
@@ -138,7 +138,7 @@ func TestFetchAccountUnknownID(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf(err)
+	t.Logf("%v", err)
 
 }
 
@@ -183,7 +183,7 @@ func TestDeleteAccountEmptyId(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf(err)
+	t.Logf("%v", err)
 
 }
 
@@ -199,7 +199,7 @@ func TestDeleteAccountUnknownID(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf(err)
+	t.Logf("%v", err)
 
 }
 
@@ -223,7 +223,7 @@ func TestDeleteAccountUnknownVersion(t *testing.T) {
 		t.Fatalf("Expecting err but got nil")
 	}
 
-	t.Logf(err)
+	t.Logf("%v", err)
 
 }
 
